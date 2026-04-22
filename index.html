@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body>
+    <div class="container">
+        <!-- Google Search -->
+        <header class="search-container">
+            <form action="https://www.google.com/search" method="get" id="search-form">
+                <input type="text" name="q" id="search-input" placeholder="Search Google or type a URL..." autocomplete="off" autofocus>
+            </form>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Dual Clocks & Weather -->
+            <section class="glass-card module-clocks">
+                <div class="clock-item" id="london-clock">
+                    <h2>London</h2>
+                    <div class="time" id="lon-time">--:--</div>
+                    <div class="date" id="lon-date">---</div>
+                    <div class="weather" id="lon-weather">Loading...</div>
+                </div>
+                <div class="clock-item" id="dubai-clock">
+                    <h2>Dubai</h2>
+                    <div class="time" id="dxb-time">--:--</div>
+                    <div class="date" id="dxb-date">---</div>
+                    <div class="weather" id="dxb-weather">Loading...</div>
+                </div>
+            </section>
+
+            <!-- Bookmarks -->
+            <section class="glass-card module-bookmarks">
+                <h2>Bookmarks</h2>
+                <div class="bookmark-categories">
+                    <div class="category">
+                        <h3>Work</h3>
+                        <a href="https://mail.google.com">Gmail</a>
+                        <a href="https://calendar.google.com">Calendar</a>
+                        <a href="https://drive.google.com">Drive</a>
+                        <a href="https://docs.google.com">Docs</a>
+                    </div>
+                    <div class="category">
+                        <h3>Shopping</h3>
+                        <a href="https://amazon.co.uk">Amazon</a>
+                        <a href="https://ebay.co.uk">eBay</a>
+                    </div>
+                    <div class="category">
+                        <h3>Reading</h3>
+                        <a href="https://medium.com">Medium</a>
+                        <a href="https://theverge.com">The Verge</a>
+                        <a href="https://arstechnica.com">Ars Technica</a>
+                    </div>
+                    <div class="category">
+                        <h3>Watching</h3>
+                        <a href="https://youtube.com">YouTube</a>
+                        <a href="https://netflix.com">Netflix</a>
+                        <a href="https://primevideo.com">Prime Video</a>
+                    </div>
+                    <div class="category">
+                        <h3>AI Services</h3>
+                        <a href="https://chatgpt.com">ChatGPT</a>
+                        <a href="https://claude.ai">Claude</a>
+                        <a href="https://gemini.google.com">Gemini</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Tickers -->
+            <section class="glass-card module-finance">
+                <h2>Markets</h2>
+                <div class="ticker" id="btc-ticker">
+                    <span class="symbol">BTC/USD</span>
+                    <span class="price" id="btc-price">Live...</span>
+                </div>
+                <div class="ticker" id="ftse-ticker">
+                    <span class="symbol">FTSE 100</span>
+                    <span class="price" id="ftse-price">Live...</span>
+                </div>
+            </section>
+
+            <!-- RSS Feeds -->
+            <section class="glass-card module-rss">
+                <h2>Latest Headlines</h2>
+                <div class="rss-columns">
+                    <div class="feed-group">
+                        <h3>Hacker News</h3>
+                        <ul id="hn-feed"><li>Loading...</li></ul>
+                    </div>
+                    <div class="feed-group">
+                        <h3>TechCrunch</h3>
+                        <ul id="tc-feed"><li>Loading...</li></ul>
+                    </div>
+                    <div class="feed-group">
+                        <h3>BBC News</h3>
+                        <ul id="bbc-feed"><li>Loading...</li></ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
