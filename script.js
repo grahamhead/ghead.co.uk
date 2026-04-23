@@ -194,13 +194,25 @@ async function initTickers() {
         console.error('BTC Fetch Error:', err);
     }
 
-    // 2. FTSE 100 via Yahoo
+    // 2. FTSE 100 via Yahoo (JSONP to bypass CORS)
     try {
         const targetUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/^FTSE?interval=15m&range=1d';
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
-        const resFtse = await fetch(proxyUrl);
-        if (!resFtse.ok) throw new Error('API error');
-        const dataFtse = await resFtse.json();
+        const dataFtse = await new Promise((resolve, reject) => {
+            const cb = 'yahooCb_' + Date.now() + Math.round(Math.random() * 1000);
+            window[cb] = function(data) {
+                resolve(data);
+                delete window[cb];
+                if (script.parentNode) script.parentNode.removeChild(script);
+            };
+            const script = document.createElement('script');
+            script.src = `${targetUrl}&callback=${cb}`;
+            script.onerror = () => {
+                reject(new Error('JSONP Failed'));
+                delete window[cb];
+                if (script.parentNode) script.parentNode.removeChild(script);
+            };
+            document.body.appendChild(script);
+        });
         
         const result = dataFtse.chart.result[0];
         const currentPrice = result.meta.regularMarketPrice;
