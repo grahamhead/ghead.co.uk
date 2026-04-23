@@ -197,7 +197,7 @@ async function initTickers() {
     // 2. FTSE 100 via Yahoo
     try {
         const targetUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/^FTSE?interval=15m&range=1d';
-        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
         const resFtse = await fetch(proxyUrl);
         if (!resFtse.ok) throw new Error('API error');
         const dataFtse = await resFtse.json();
