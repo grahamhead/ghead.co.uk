@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="theme-color" content="#0f172a">
 </head>
 <body>
@@ -14,13 +15,13 @@
         <!-- Status Bar -->
         <div class="status-bar">
             <div class="status-item">
-                <span class="location">London</span>
+                <span class="location"><img src="https://flagcdn.com/w40/gb.png" alt="UK">London</span>
                 <span class="date" id="lon-date">---</span>
                 <span class="time" id="lon-time">--:--</span>
                 <span class="weather" id="lon-weather">Loading...</span>
             </div>
             <div class="status-item">
-                <span class="location">Dubai</span>
+                <span class="location"><img src="https://flagcdn.com/w40/ae.png" alt="UAE">Dubai</span>
                 <span class="date" id="dxb-date">---</span>
                 <span class="time" id="dxb-time">--:--</span>
                 <span class="weather" id="dxb-weather">Loading...</span>
@@ -31,34 +32,33 @@
         <header class="search-container">
             <form action="https://www.google.com/search" method="get" id="search-form">
                 <input type="text" name="q" id="search-input" placeholder="Search Google or type a URL..." autocomplete="off" autofocus>
+                <button type="submit" id="search-button" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
             </form>
         </header>
 
         <main class="dashboard-grid">
             <!-- Bookmarks -->
             <section class="glass-card module-bookmarks">
-                <h2>Bookmarks</h2>
                 <div class="bookmark-categories">
                     <div class="category">
                         <h3>Work</h3>
-                        <a href="https://mail.google.com">Gmail</a>
-                        <a href="https://calendar.google.com">Calendar</a>
-                        <a href="https://drive.google.com">Drive</a>
-                        <a href="https://docs.google.com">Docs</a>
+                        <a href="https://mail.google.com" data-icon-url="https://ssl.gstatic.com/images/branding/product/1x/gmail_2020q4_48dp.png">Gmail</a>
+                        <a href="https://calendar.google.com" data-icon-url="https://ssl.gstatic.com/images/branding/product/1x/calendar_2020q4_48dp.png">Calendar</a>
+                        <a href="https://drive.google.com" data-icon-url="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png">Drive</a>
+                        <a href="https://docs.google.com" data-icon-url="https://ssl.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png">Docs</a>
+                    </div>
+                    <div class="category">
+                        <h3>Reading</h3>
+                        <a href="https://www.bbc.co.uk/news">BBC News</a>
+                        <a href="https://www.bbc.co.uk/sport">BBC Sport</a>
+                        <a href="https://www.newsnow.co.uk/h/Sport/Football/Championship/Watford">NewsNow Watford</a>
                     </div>
                     <div class="category">
                         <h3>Shopping</h3>
                         <a href="https://amazon.co.uk">Amazon</a>
                         <a href="https://ebay.co.uk">eBay</a>
-                    </div>
-                    <div class="category">
-                        <h3>Reading</h3>
-                        <a href="https://medium.com">Medium</a>
-                        <a href="https://theverge.com">The Verge</a>
-                        <a href="https://arstechnica.com">Ars Technica</a>
-                        <a href="https://www.bbc.co.uk/news">BBC News</a>
-                        <a href="https://www.bbc.co.uk/sport">BBC Sport</a>
-                        <a href="https://www.newsnow.co.uk/h/Sport/Football/Championship/Watford">NewsNow Watford</a>
                     </div>
                     <div class="category">
                         <h3>Watching</h3>
@@ -72,25 +72,68 @@
                         <a href="https://claude.ai">Claude</a>
                         <a href="https://gemini.google.com">Gemini</a>
                     </div>
+                    <div class="category">
+                        <h3>Development</h3>
+                        <a href="https://github.com">GitHub</a>
+                        <a href="https://console.aws.amazon.com/">AWS Console</a>
+                        <a href="https://console.cloud.google.com/">Google Cloud</a>
+                    </div>
+                    <div class="category">
+                        <h3>Core Infrastructure</h3>
+                        <a href="https://nginx.ghead.co.uk" data-ping="https://nginx.ghead.co.uk" data-favicon="nginx.com"><span class="ping-status"></span> Nginx PM</a>
+                        <a href="https://dockge.ghead.co.uk" data-ping="https://dockge.ghead.co.uk" data-favicon="dockge.kuma.pet"><span class="ping-status"></span> Dockge</a>
+                        <a href="http://router.local" data-ping="http://router.local" data-favicon="ui.com"><span class="ping-status"></span> Router</a>
+                        <a href="http://starlink.local" data-ping="http://starlink.local" data-favicon="starlink.com"><span class="ping-status"></span> Starlink</a>
+                    </div>
+                    <div class="category">
+                        <h3>Productivity & Utility</h3>
+                        <a href="https://paperless.ghead.co.uk" data-ping="https://paperless.ghead.co.uk" data-favicon="docs.paperless-ngx.com"><span class="ping-status"></span> Paperless-ngx</a>
+                        <a href="https://ghostfolio.ghead.co.uk" data-ping="https://ghostfolio.ghead.co.uk" data-favicon="ghostfol.io"><span class="ping-status"></span> Ghostfolio</a>
+                        <a href="https://it-tools.ghead.co.uk" data-ping="https://it-tools.ghead.co.uk" data-favicon="it-tools.tech"><span class="ping-status"></span> IT-Tools</a>
+                        <a href="https://cyberchef.ghead.co.uk" data-ping="https://cyberchef.ghead.co.uk" data-favicon="gchq.github.io"><span class="ping-status"></span> CyberChef</a>
+                        <a href="https://homeassistant.ghead.co.uk/dashboard-heads/0" data-ping="https://homeassistant.ghead.co.uk" data-favicon="home-assistant.io"><span class="ping-status"></span> Home Assistant</a>
+                    </div>
                 </div>
             </section>
 
-            <!-- Financial Tickers -->
-            <section class="glass-card module-finance">
-                <h2>Markets</h2>
-                <div class="ticker" id="btc-ticker">
-                    <span class="symbol">BTC/USD</span>
-                    <span class="price" id="btc-price">Live...</span>
-                </div>
-                <div class="ticker" id="ftse-ticker">
-                    <span class="symbol">FTSE 100</span>
-                    <span class="price" id="ftse-price">Live...</span>
-                </div>
-            </section>
+            <!-- Financial Cards -->
+            <div class="finance-column">
+                <section class="glass-card finance-card" id="btc-card">
+                    <div class="card-header">
+                        <div class="header-top">
+                            <div class="title">Bitcoin</div>
+                            <div class="timeframe">Past 24 Hours</div>
+                        </div>
+                        <div class="symbol">BTC-USD (Crypto)</div>
+                        <div class="price-row">
+                            <span class="price" id="btc-price">Loading...</span>
+                            <span class="change" id="btc-change">--</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="btc-chart"></canvas>
+                    </div>
+                </section>
+                <section class="glass-card finance-card" id="ftse-card">
+                    <div class="card-header">
+                        <div class="header-top">
+                            <div class="title">FTSE 100</div>
+                            <div class="timeframe">1 Day</div>
+                        </div>
+                        <div class="symbol">^FTSE (Index)</div>
+                        <div class="price-row">
+                            <span class="price" id="ftse-price">Loading...</span>
+                            <span class="change" id="ftse-change">--</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ftse-chart"></canvas>
+                    </div>
+                </section>
+            </div>
 
             <!-- RSS Feeds -->
-            <section class="glass-card module-rss">
-                <h2>Latest Headlines</h2>
+            <section class="module-rss">
                 <div class="rss-columns">
                     <div class="feed-group">
                         <h3>Hacker News</h3>
@@ -107,16 +150,6 @@
                 </div>
             </section>
 
-            <!-- Internal Services -->
-            <section class="glass-card module-internal">
-                <h2>Internal Services</h2>
-                <div class="internal-links">
-                    <a href="http://router.local" data-favicon="ui.com">Router</a>
-                    <a href="http://starlink.local" data-favicon="starlink.com">Starlink</a>
-                    <a href="http://paperless.local" data-favicon="docs.paperless-ngx.com">Paperless</a>
-                    <a href="http://homeassistant.local" data-favicon="home-assistant.io">Home Assistant</a>
-                </div>
-            </section>
         </main>
     </div>
     <script src="script.js"></script>
