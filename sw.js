@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dashboard-cache-v2';
+const CACHE_NAME = 'ghead-dash-v2';
 const urlsToCache = [
     '/',
     '/index.html',
