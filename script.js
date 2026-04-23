@@ -3,14 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     if (searchInput) searchInput.focus();
 
-    // 2. Register PWA Service Worker (temporarily disabled for dev so live-reload works)
-    /*
+    // 2. Register PWA Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(reg => console.log('Service Worker Registered'))
             .catch(err => console.error('Service Worker Registration Failed:', err));
     }
-    */
 
     // 3. Initialize Widgets
     addFavicons(); // Load favicons for the bookmarks
