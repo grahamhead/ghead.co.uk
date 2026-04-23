@@ -11,6 +11,22 @@
 </head>
 <body>
     <div class="container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="location">London</span>
+                <span class="date" id="lon-date">---</span>
+                <span class="time" id="lon-time">--:--</span>
+                <span class="weather" id="lon-weather">Loading...</span>
+            </div>
+            <div class="status-item">
+                <span class="location">Dubai</span>
+                <span class="date" id="dxb-date">---</span>
+                <span class="time" id="dxb-time">--:--</span>
+                <span class="weather" id="dxb-weather">Loading...</span>
+            </div>
+        </div>
+
         <!-- Google Search -->
         <header class="search-container">
             <form action="https://www.google.com/search" method="get" id="search-form">
@@ -19,22 +35,6 @@
         </header>
 
         <main class="dashboard-grid">
-            <!-- Dual Clocks & Weather -->
-            <section class="glass-card module-clocks">
-                <div class="clock-item" id="london-clock">
-                    <h2>London</h2>
-                    <div class="time" id="lon-time">--:--</div>
-                    <div class="date" id="lon-date">---</div>
-                    <div class="weather" id="lon-weather">Loading...</div>
-                </div>
-                <div class="clock-item" id="dubai-clock">
-                    <h2>Dubai</h2>
-                    <div class="time" id="dxb-time">--:--</div>
-                    <div class="date" id="dxb-date">---</div>
-                    <div class="weather" id="dxb-weather">Loading...</div>
-                </div>
-            </section>
-
             <!-- Bookmarks -->
             <section class="glass-card module-bookmarks">
                 <h2>Bookmarks</h2>
@@ -56,6 +56,9 @@
                         <a href="https://medium.com">Medium</a>
                         <a href="https://theverge.com">The Verge</a>
                         <a href="https://arstechnica.com">Ars Technica</a>
+                        <a href="https://www.bbc.co.uk/news">BBC News</a>
+                        <a href="https://www.bbc.co.uk/sport">BBC Sport</a>
+                        <a href="https://www.newsnow.co.uk/h/Sport/Football/Championship/Watford">NewsNow Watford</a>
                     </div>
                     <div class="category">
                         <h3>Watching</h3>
@@ -101,6 +104,17 @@
                         <h3>BBC News</h3>
                         <ul id="bbc-feed"><li>Loading...</li></ul>
                     </div>
+                </div>
+            </section>
+
+            <!-- Internal Services -->
+            <section class="glass-card module-internal">
+                <h2>Internal Services</h2>
+                <div class="internal-links">
+                    <a href="http://router.local" data-favicon="ui.com">Router</a>
+                    <a href="http://starlink.local" data-favicon="starlink.com">Starlink</a>
+                    <a href="http://paperless.local" data-favicon="docs.paperless-ngx.com">Paperless</a>
+                    <a href="http://homeassistant.local" data-favicon="home-assistant.io">Home Assistant</a>
                 </div>
             </section>
         </main>

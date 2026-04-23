@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Initialize Widgets
     addFavicons(); // Load favicons for the bookmarks
-    initClocks();
+    updateClocks();
     initWeather();
     initTickers();
     initRSS();
@@ -20,12 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---------- FAVICONS ----------
 function addFavicons() {
-    const links = document.querySelectorAll('.bookmark-categories a');
+    const links = document.querySelectorAll('.bookmark-categories a, .internal-links a');
     links.forEach(link => {
         try {
             const url = new URL(link.href);
+            const domain = link.dataset.favicon || url.hostname;
             // Grab high quality favicons via Google
-            const faviconUrl = `https://www.google.com/s2/favicons?domain=${url.hostname}&sz=32`;
+            const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 
             const img = document.createElement('img');
             img.src = faviconUrl;
@@ -62,13 +63,26 @@ function updateClocks() {
 setInterval(updateClocks, 1000);
 
 // ---------- WEATHER ----------
+function getWeatherIcon(code, isDay) {
+    if (code === 0) return isDay ? '☀️' : '🌙';
+    if (code === 1 || code === 2) return isDay ? '⛅' : '☁️';
+    if (code === 3) return '☁️';
+    if ([45, 48].includes(code)) return '🌫️';
+    if ([51, 53, 55, 56, 57].includes(code)) return '🌦️';
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return '🌧️';
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return '❄️';
+    if ([95, 96, 99].includes(code)) return '⛈️';
+    return '🌡️';
+}
+
 async function initWeather() {
     try {
         // London (uses open-meteo, no API key required)
         const resLon = await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5085&longitude=-0.1257&current_weather=true');
         if (!resLon.ok) throw new Error('API error');
         const dataLon = await resLon.json();
-        document.getElementById('lon-weather').innerText = `${dataLon.current_weather.temperature}°C`;
+        const iconLon = getWeatherIcon(dataLon.current_weather.weathercode, dataLon.current_weather.is_day);
+        document.getElementById('lon-weather').innerText = `${iconLon} ${dataLon.current_weather.temperature}°C`;
     } catch (e) {
         document.getElementById('lon-weather').innerText = 'Err';
         console.error('London Weather Fetch Error:', e);
@@ -79,7 +93,8 @@ async function initWeather() {
         const resDxb = await fetch('https://api.open-meteo.com/v1/forecast?latitude=25.2582&longitude=55.3047&current_weather=true');
         if (!resDxb.ok) throw new Error('API error');
         const dataDxb = await resDxb.json();
-        document.getElementById('dxb-weather').innerText = `${dataDxb.current_weather.temperature}°C`;
+        const iconDxb = getWeatherIcon(dataDxb.current_weather.weathercode, dataDxb.current_weather.is_day);
+        document.getElementById('dxb-weather').innerText = `${iconDxb} ${dataDxb.current_weather.temperature}°C`;
     } catch (e) {
         document.getElementById('dxb-weather').innerText = 'Err';
         console.error('Dubai Weather Fetch Error:', e);
